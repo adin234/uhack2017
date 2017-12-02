@@ -1,7 +1,11 @@
 const DATETIME_FMT = 'YYYY-MM-DD HH:mm:ss';
 const API = 'http://192.168.0.24:3000';
 const USER_ID = 10002;
+<<<<<<< HEAD
 const NAME = 'Ninz';
+=======
+let forEx = [];
+>>>>>>> 862f9bf6bafb1ae48d513892fc4d585945b6147e
 
 function onSignIn(googleUser) {
 	var profile = googleUser.getBasicProfile();
@@ -13,27 +17,62 @@ function onSignIn(googleUser) {
 	location.href = "offer.html";
 }
 
+function request(url, done, fail, always) {
+	$.ajax({
+			url: API + url,
+			headers: {
+				'x-user-id': USER_ID
+			}
+		})
+		.done(done)
+		.fail(fail)
+		.always(always);
+}
+
 function start () {
 	bind();
 
 	typeof pageStart != "undefined" && pageStart();
-
-
-    $('select').material_select();
 
     $('.timepicker').pickatime({
         twelvehour: false,
         autoclose: true
     });
 
+<<<<<<< HEAD
 	$('.modal').modal();
 
+=======
+>>>>>>> 862f9bf6bafb1ae48d513892fc4d585945b6147e
     $('.datepicker').pickadate({
         closeOnSelect: true,
         format: 'yyyy-mm-dd'
     });
 
+    getForex();
+
     show(location.hash.substring(1) || 'offers');
+}
+
+function getForex() {
+	request(
+		'/api/transaction/forex',
+		function (e) {
+			forEx = e.data;
+			let options = ['<option value="PHP">Philippine Peso</option>'];
+
+			for(let i=0; i < forEx.length; i++) {
+				options.push('<option value="'+forEx[i].symbol+'">'+forEx[i].name+'</option>')
+			}
+
+			$('select.currency').html(options.join(''));
+
+		},
+		function (e) {},
+		function (e) {
+			$('select').material_select();
+		}
+	);
 }
 
 function bind() {
@@ -49,6 +88,48 @@ function bind() {
 
 	$('#offer-form').submit(submitOffer);
 	$('#details-form').submit(submitDetails);
+
+	$('select[name=exchange_currency]').change(function (e) {
+		if (e.target.value != "PHP") {
+			$('select[name=currency]').val('PHP');
+
+			$('select').material_select();
+
+			compute($('select[name=currency]').val(), $('select[name=exchange_currency]').val(), $('input[name=amount]').val());
+		}
+	});
+
+	$('select[name=currency]').change(function (e) {
+		if (e.target.value != "PHP") {
+			$('select[name=exchange_currency]').val('PHP');
+
+			$('select').material_select();
+
+			compute($('select[name=currency]').val(), $('select[name=exchange_currency]').val(), $('input[name=amount]').val());
+		}
+	});
+}
+
+function compute(from, to, amount) {
+	if (from == 'PHP') {
+		multiplier = 1/convert('selling', to)
+	}
+
+	if (to == 'PHP') {
+		multiplier = convert('buying', from)
+	}
+
+	$('input[name=converted]').val(multiplier * amount);
+
+	$('#exchange-rate').html("1 " + from + " = " + multiplier + " " + to);
+}
+
+function convert(type, key) {
+	for (let i=0; i < forEx.length; i++) {
+		if (forEx[i].symbol == key) {
+			return forEx[i][type];
+		}
+	}
 }
 
 function submitOffer(e) {
@@ -146,6 +227,7 @@ function submitDetails(e) {
 
 function show(section) {
 	$('section').hide();
+	$('.hidden').hide();
 	$('#nav-mobile li').removeClass('active');
 	$('#' + section + '-nav').addClass('active');
 	$('.' + section + '-section').show();
