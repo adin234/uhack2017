@@ -18,9 +18,9 @@
                 <div class="nav-wrapper">
                   <img class="brand-logo right" id="logo" src="img/4xlogo.png" width="45px" />
                   <ul id="nav-mobile" class="left hide-on-med-and-down">
-                    <li class="active"><a href="#">Offers</a></li>
-                    <li><a href="#">Listings</a></li>
-                    <li><a href="#">Settings</a></li>
+                    <li id="offers-nav"><a href="#offers" onclick="show('offers')">Offers</a></li>
+                    <li id="listings-nav"><a href="#listings" onclick="show('listings')">Listings</a></li>
+                    <li id="settings-nav"><a href="#settings" onclick="show('settings')">Settings</a></li>
                   </ul>
                 </div>
 
@@ -30,7 +30,7 @@
 
         <div class="container">
             <br/>
-            <section id="offer-section">
+            <section id="offers-section">
                 <form class="form col s12" id="offer-form">
                     <h4>Foreign Exchange</h4>
                     <div class="card">
@@ -138,6 +138,10 @@
 
             <section id="listings-section">
                     I'm listings section
+            </section>
+
+            <section id="settings-section">
+                    I'm settings section
             </section>
 
             <br/>

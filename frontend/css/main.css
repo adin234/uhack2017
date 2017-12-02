@@ -1,6 +1,9 @@
 #logo {
     margin-top: 10px;
 }
+section{
+    display: none;
+}
 nav {
     background: #FE5722;
 }
