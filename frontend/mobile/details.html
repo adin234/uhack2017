@@ -13,79 +13,100 @@
 
         <!-- Compiled and minified CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
         <!-- Compiled and minified JavaScript -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 
-        <link rel="stylesheet" href="css/normalize.min.css">
-        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="/css/normalize.min.css">
+        <link rel="stylesheet" href="/css/main.css">
+        <link rel="stylesheet" href="/css/mobile.css">
 
-        <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+        <script src="/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
 
         <meta name="google-signin-client_id" content="633338575872-l63hijqjvamr9lqo8g7p1qtajk2ebmg9.apps.googleusercontent.com">
     </head>
-    <body>
+    <body id="details">
         <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <div class="listing-details">
-            <img class="listing-image" alt="$">
-            <dl>
-                <dt>From</dt>
-                <dl>Japan</dl>
-                <dt>Date</dt>
-                <dl>June 28, 2018 12:00 PHT</dl>
-            </dl>
-        </div>
+        <header>DETAILS</header>
 
-        <div class="messaging">
-            <ul>
-                <li class="sent">
-                    <div class="message">
-                        <p class="content"> LOLOLOLOLOL </p>
-                    </div>
-                </li>
-                <li class="received">
-                    <div class="message">
-                        <p class="content"> LOLOLOLOLOL </p>
-                    </div>
-                </li>
-                <li class="sent">
-                    <div class="message">
-                        <p class="content"> LOLOLOLOLOL </p>
-                    </div>
-                </li>
-                <li class="sent">
-                    <div class="message">
-                        <p class="content"> LOLOLOLOLOL </p>
-                    </div>
-                </li>
-            </ul>
-            <div class="messageForm">
-                <textarea></textarea>
-                <button>SEND</button>
+        <section class="main-content">
+            <div class="listing-data">
+                <i class="chevron material-icons">chevron_left</i>
+                <span class="circle">nin</span>
+                <div class="details">
+                    <span class="value">10,250,50 PHP</span>
+                    <dl>
+                        <dd>NAIA Terminal 3</dd>
+                        <dd>November 29, 2019</dd>
+                        <dd>8:00PM</dd>
+                    </dl>
+                </div>
             </div>
-        </div>
 
-        <div class="actions">
-            <button>ACCEPT</button> <!-- pwede gaing complete pag tapos na -->
-            <button style="display:none">CANCEL</button> <!-- pwede gaing complete pag tapos na -->
-        </div>
+            <div class="messaging">
+                <ul>
+                    <li class="sent">
+                        <div class="message">
+                            <p class="content"> LOLOLOLOLOL </p>
+                        </div>
+                    </li>
+                    <li class="received">
+                        <div class="message">
+                            <p class="content"> LOLOLOLOLOL </p>
+                        </div>
+                    </li>
+                    <li class="sent">
+                        <div class="message">
+                            <p class="content"> LOLOLOLOLOL </p>
+                        </div>
+                    </li>
+                    <li class="sent">
+                        <div class="message">
+                            <p class="content"> LOLOLOLOLOL </p>
+                        </div>
+                    </li>
+                </ul>
+                <div class="messageForm">
+                    <textarea></textarea>
+                    <button>SEND</button>
+                </div>
+            </div>
+
+            <div class="actions">
+                <button>ACCEPT</button> <!-- pwede gaing complete pag tapos na -->
+                <button style="display:none">CANCEL</button> <!-- pwede gaing complete pag tapos na -->
+            </div>
+        </section>
 
         <footer>
             <ul>
-                <li><a href="/offer.html">Offer</a></li>
-                <li><a href="/list.html?listings=true">Listings</a></li>
-                <li><a href="/profile.html">Profile</a></li>
+                <li><a href="/mobile/list.html"><img src="/img/listings.png"/></a></li>
+                <li><a href="/mobile/offer.html?listings=true"><img src="/img/offers.png"/></a></li>
+                <li><a href="/mobile/profile.html"><img src="/img/profile.png"/></a></li>
             </ul>
         </footer>
+
+        <script type="text/html">
+            <span class="circle">{{ALIAS}}</span>
+            <div class="details">
+                <span class="value">{{AMOUNT}}</span>
+                <dl>
+                    <dd>{{TO}}</dd>
+                    <dd>{{DATE}}</dd>
+                    <dd>{{TIME}}</dd>
+                </dl>
+            </div>
+        </script>
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
         <script src="https://apis.google.com/js/platform.js" async defer></script>
 
-        <script src="js/main.js"></script>
+        <script src="/js/main.js"></script>
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>

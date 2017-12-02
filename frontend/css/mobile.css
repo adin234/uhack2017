@@ -110,7 +110,8 @@
         border-top: 0px;
     }
 
-    #listings .listing .listing-data .value {
+    #listings .listing .listing-data .value,
+    #details .listing-data .value {
         margin-left: 20px;
         font-size: 24px;
         color: #FD8C55;
@@ -128,9 +129,16 @@
         border-color: #CCCCCC;
     }
 
+    #listings .listing .listing-data .details {
+        flex: 1;
+    }
+
     #listings .listing .listing-data dl {
         margin-left: 20px;
-        flex: 1;
+    }
+
+    #listings .listing .preloader-wrapper {
+        width: 0;
     }
 
     #listings .listing > ul li {
@@ -155,6 +163,21 @@
         background-color: red;
         border-radius: 3px;
         color: white;
+    }
+
+    #details .listing-data {
+        background: white;
+        display: flex;
+        align-items: center;
+    }
+
+    #details .listing-data .details {
+        margin-left: 20px;
+        flex: 1;
+    }
+
+    #details .listing-data .value {
+        margin-left: 0px;
     }
 
     .circle {
