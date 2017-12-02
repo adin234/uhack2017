@@ -5,7 +5,7 @@ function onSignIn(googleUser) {
 	console.log('Image URL: ' + profile.getImageUrl());
 	console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
 
-	location.href = "/offer.html";
+	location.href = "offer.html";
 }
 
 function start () {
@@ -52,16 +52,16 @@ function showListings(e) {
 }
 
 function nextPage(id) {
-	let goTo = '/list.html?listings=true&id=' + id;
+	let goTo = 'list.html?listings=true&id=' + id;
 	open(goTo)
 }
 
 function buy() {
-	open('/details.html?buy=true');
+	open('details.html?buy=true');
 }
 
 function sell() {
-	open('/details.html')
+	open('details.html')
 }
 
 function open(path) {
