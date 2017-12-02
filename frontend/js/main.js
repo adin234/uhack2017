@@ -29,6 +29,8 @@ function start () {
         closeOnSelect: true,
         format: 'yyyy-mm-dd'
     });
+
+    show(location.hash.substring(1) || 'offers');
 }
 
 function bind() {
@@ -97,7 +99,10 @@ function submitOffer(e) {
 }
 
 function show(section) {
+	location.hash = section;
 	$('section').hide();
+	$('#nav-mobile li').removeClass('active');
+	$('#' + section + '-nav').addClass('active');
 	$('#' + section + '-section').show();
 }
 $(document).ready(start);
