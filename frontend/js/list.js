@@ -6,18 +6,6 @@ const templates = [
 	'#tpl-listings'
 ];
 
-function request(url, done, fail, always) {
-	$.ajax({
-			url: API + url,
-			headers: {
-				'x-user-id': USER_ID
-			}
-		})
-		.done(done)
-		.fail(fail)
-		.always(always);
-}
-
 function pageStart() {
 	pageBind();
 	request(

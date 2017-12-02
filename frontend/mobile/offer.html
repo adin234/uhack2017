@@ -19,11 +19,13 @@
 
         <meta name="google-signin-client_id" content="633338575872-l63hijqjvamr9lqo8g7p1qtajk2ebmg9.apps.googleusercontent.com">
     </head>
-    <body>
+    <body id="mobile">
         <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-        <header>OFFER</header>
+        <header class="hidden offers-section">OFFER</header>
+        <header class="hidden listings-section">LISTINGS</header>
+        <header class="hidden details-section">DETAILS</header>
 
         <section class="main-content offers-section">
             <div class="container">
@@ -38,7 +40,7 @@
                                     <label>I have</label>
                                 </div>
                                 <div class="input-field col s6">
-                                    <select name="currency">
+                                    <select class="currency" name="currency">
                                         <option value="php" selected>PH Peso</option>
                                         <option value="yen">JA Yen</option>
                                     </select>
@@ -47,11 +49,11 @@
                             </div>
                             <div class="row">
                                 <div class="input-field col s6">
-                                    <input type="number" placeholder="23,403.40" disabled>
+                                    <input type="number" placeholder="23,403.40" name="converted" disabled>
                                     <label>In exchange for</label>
                                 </div>
                                 <div class="input-field col s6">
-                                    <select name="exchange_currency">
+                                    <select class="currency" name="exchange_currency">
                                         <option value="php">PH Peso</option>
                                         <option value="yen" selected>JA Yen</option>
                                     </select>
@@ -158,6 +160,56 @@
                     <span clss="badge">10</span>
                 </li>
             </ul>
+        </section>
+
+        
+        <section id="details" class="main-content details-section">
+            <div class="listing-data">
+                <i class="chevron material-icons">chevron_left</i>
+                <span class="circle">nin</span>
+                <div class="details">
+                    <span class="value">10,250,50 PHP</span>
+                    <dl>
+                        <dd>NAIA Terminal 3</dd>
+                        <dd>November 29, 2019</dd>
+                        <dd>8:00PM</dd>
+                    </dl>
+                </div>
+            </div>
+
+            <div class="messaging">
+                <ul>
+                    <li class="sent">
+                        <div class="message">
+                            <p class="content"> LOLOLOLOLOL </p>
+                        </div>
+                    </li>
+                    <li class="received">
+                        <div class="message">
+                            <p class="content"> LOLOLOLOLOL </p>
+                        </div>
+                    </li>
+                    <li class="sent">
+                        <div class="message">
+                            <p class="content"> LOLOLOLOLOL </p>
+                        </div>
+                    </li>
+                    <li class="sent">
+                        <div class="message">
+                            <p class="content"> LOLOLOLOLOL </p>
+                        </div>
+                    </li>
+                </ul>
+                <div class="messageForm">
+                    <textarea></textarea>
+                    <button>SEND</button>
+                </div>
+            </div>
+
+            <div class="actions">
+                <button>ACCEPT</button> <!-- pwede gaing complete pag tapos na -->
+                <button style="display:none">CANCEL</button> <!-- pwede gaing complete pag tapos na -->
+            </div>
         </section>
 
         <footer>

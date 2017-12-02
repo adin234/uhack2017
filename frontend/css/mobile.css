@@ -180,6 +180,10 @@
         margin-left: 0px;
     }
 
+    .hidden {
+        display: none;
+    }
+
     .circle {
         width: 60px;
         height: 60px;
