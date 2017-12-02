@@ -1,48 +1,4 @@
-const listingData = [{
-	"id": 1,
-	"from": "japan",
-	"to": "manila",
-	"date": "December 26, 2017",
-	"matches": 3,
-	"type": "money",
-	"alias": "nin",
-	"time": "7:00PM",
-	"amount": "10,254.34 PHP"
-}, {
-	"id": 2,
-	"from": "manila",
-	"to": "cebu",
-	"date": "December 29, 2017",
-	"matches": 10,
-	"type": "baggage",
-	"alias": "nin",
-	"time": "7:00PM",
-	"amount": "10,254.34 PHP",
-	"done": true
-}];
-
-const matchesData = [{
-	"id": 1,
-	"from": "japan",
-	"to": "manila",
-	"date": "December 26, 2017",
-	"newMessages": 4,
-	"type": "money",
-	"alias": "nin",
-	"time": "7:00PM",
-	"amount": "10,254.34 PHP",
-	"done" : true
-}, {
-	"id": 2,
-	"from": "manila",
-	"to": "cebu",
-	"date": "December 29, 2017",
-	"newMessages": 2,
-	"type": "baggage",
-	"alias": "nin",
-	"time": "7:00PM",
-	"amount": "10,254.34 PHP"
-}];
+const baseUrl = 'http://192.168.0.24:3000/api/';
 
 const MATCHES = 0;
 const LISTINGS = 1;
@@ -52,9 +8,27 @@ const templates = [
 	'#tpl-listings'
 ];
 
+function request(url, done, fail, always) {
+	$.ajax({
+			url: url,
+			headers: {
+				'x-user-id': 10002
+			}
+		})
+		.done(done)
+		.fail(fail)
+		.always(always);
+}
+
 function pageStart() {
 	pageBind();
-	listings();
+	request(
+		baseUrl + 'transaction/user_transaction',
+		function (e) {
+			listings(e.data);
+		},
+		function (e) {}
+	);
 }
 
 function pageBind() {
@@ -64,19 +38,33 @@ function pageBind() {
 function showListing(e) {
 	const target = $(e.currentTarget);
 
-
 	if ($(target).hasClass('done')) {
 		return;
 	}
 
 	if ($(target).data('type') === 'listing') {
+		$('.chevron', target).hide();
+		$('.preloader-wrapper', target).css('width', '36px').toggleClass('active');
 		//mock request
-		matches(target, matchesData)
+		request(
+			baseUrl + 'transaction/search_match?transaction_id=' + $(target).data('id'),
+			function (e) {
+				if (!e.length) {
+					$('.chevron', target).hide();
+				}
+
+				matches(target, e.data);
+			},
+			function (e) {},
+			function (e) {
+				$('.preloader-wrapper', target).toggleClass('active').css('width', '0');
+			}
+		);
 		return;
 	}
 
 
-	open('/details.html?id='+target.data('id'));
+	open('details.html?id='+target.data('id'));
 }
 
 function matches(holder, _matchesData) {
@@ -87,8 +75,8 @@ function matches(holder, _matchesData) {
 
 }
 
-function listings() {
-	const tpl = template(listingData, LISTINGS);
+function listings(e) {
+	const tpl = template(e, LISTINGS);
 
 	$('#listings').html(tpl);
 }
@@ -101,13 +89,13 @@ function template(data, type) {
 	for (let i=0; i< data.length; i++) {
 		const tpl = $(templates[type]).html()
 			.replace(/\{\{DONE\}\}/gi, data[i].done ? "done" : "")
-			.replace(/\{\{ID\}\}/gi, data[i].id)
-			.replace(/\{\{FROM\}\}/gi, data[i].from)
-			.replace(/\{\{TO\}\}/gi, data[i].to)
-			.replace(/\{\{DATE\}\}/gi, data[i].date)
-			.replace(/\{\{ALIAS\}\}/gi, data[i].alias)
-			.replace(/\{\{TIME\}\}/gi, data[i].time)
-			.replace(/\{\{AMOUNT\}\}/gi, data[i].amount)
+			.replace(/\{\{ID\}\}/gi, data[i].user_transaction_id)
+			.replace(/\{\{FROM\}\}/gi, data[i].depart_from)
+			.replace(/\{\{TO\}\}/gi, data[i].arrive_to)
+			.replace(/\{\{DATE\}\}/gi, moment(data[i].arrive_date).format('MMM DD, YYYY'))
+			.replace(/\{\{ALIAS\}\}/gi, data[i].currency)
+			.replace(/\{\{TIME\}\}/gi, moment(data[i].arrive_date).format('HH:mm'))
+			.replace(/\{\{AMOUNT\}\}/gi, data[i].amount + " " + data[i].exchange_currency)
 			.replace(/\{\{CHEV\}\}/gi, data[i].done ? "" : chevBadge)
 			.replace(/\{\{MESSAGE_BADGE\}\}/gi, data[i].done ? "DONE" : messageBadge)
 			.replace(/\{\{BADGE\}\}/gi, data[i].newMessages || (data[i].done ? "DONE" : data[i].matches))
