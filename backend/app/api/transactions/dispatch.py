@@ -1,4 +1,5 @@
 import datetime
+import requests
 
 # Import global context
 from flask import request, current_app, g
@@ -11,7 +12,7 @@ from ...lib import FailedRequest
 from ...lib import db, make_response, auth_required
 from sqlalchemy import and_, or_, between
 
-from .models import UserTransaction
+from .models import UserTransaction, Airport
 from ..auth.models import User
 
 # Define the blueprint: 'auth', set its url prefix: app.url/user
@@ -59,6 +60,32 @@ def get_user_transactions(res):
 
     transactions = list(map(lambda x: x.serialize(), transactions))
     return res.send(transactions)
+
+
+@mod_transaction.route('/forex', methods=['GET'])
+@auth_required
+@make_response
+def get_available_forex(res):
+
+    url_path = '/forex/v1/rates'
+    full_url = current_app.config['UB_BASE_URL'] + url_path
+    headers = {
+        'x-ibm-client-id': current_app.config['UB_CLIENT_ID'],
+        'x-ibm-client-secret': current_app.config['UB_CLIENT_SECRET'],
+    }
+    r = requests.get(full_url, headers=headers)
+
+    return res.send(r.json())
+
+
+@mod_transaction.route('/airports', methods=['GET'])
+@auth_required
+@make_response
+def get_available_airports(res):
+
+    airports = db.session.query(Airport).all()
+
+    return res.send([ap.serialize() for ap in airports])
 
 
 @mod_transaction.route('/search_match', methods=['GET'])

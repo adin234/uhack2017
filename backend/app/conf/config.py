@@ -43,3 +43,7 @@ class DefaultConfig(BaseConfig):
     # SQLALCHEMY_ECHO = True
 
     API_DATE_FORMAT = '%Y-%m-%dT%H:%M:%SZ'
+
+    UB_BASE_URL = 'https://api-uat.unionbankph.com/partners/sb'
+    UB_CLIENT_ID = '0bd3e5bb-6acd-4212-889b-e0d98529ed6f'
+    UB_CLIENT_SECRET = 'H4fF2cI5jF8rM5oH0qQ5cX6vB8xE2jK7lU1yA5pL1iX4uR7uJ1'
