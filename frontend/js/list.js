@@ -1,5 +1,3 @@
-const baseUrl = 'http://192.168.0.24:3000/api/';
-
 const MATCHES = 0;
 const LISTINGS = 1;
 
@@ -10,9 +8,9 @@ const templates = [
 
 function request(url, done, fail, always) {
 	$.ajax({
-			url: url,
+			url: API + url,
 			headers: {
-				'x-user-id': 10002
+				'x-user-id': USER_ID
 			}
 		})
 		.done(done)
@@ -23,7 +21,7 @@ function request(url, done, fail, always) {
 function pageStart() {
 	pageBind();
 	request(
-		baseUrl + 'transaction/user_transaction',
+		'/api/transaction/user_transaction',
 		function (e) {
 			listings(e.data);
 		},
@@ -47,7 +45,7 @@ function showListing(e) {
 		$('.preloader-wrapper', target).css('width', '36px').toggleClass('active');
 		//mock request
 		request(
-			baseUrl + 'transaction/search_match?transaction_id=' + $(target).data('id'),
+			'/api/transaction/search_match?transaction_id=' + $(target).data('id'),
 			function (e) {
 				if (!e.length) {
 					$('.chevron', target).hide();

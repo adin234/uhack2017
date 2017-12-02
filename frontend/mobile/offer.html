@@ -13,10 +13,9 @@
 
         <!-- Compiled and minified CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="stylesheet" href="/css/main.css">
         <link rel="stylesheet" href="/css/mobile.css">
-
-        <script src="/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
 
         <meta name="google-signin-client_id" content="633338575872-l63hijqjvamr9lqo8g7p1qtajk2ebmg9.apps.googleusercontent.com">
     </head>
@@ -136,7 +135,7 @@
             </div>
         </section>
 
-        <section class="main-content list-section">
+        <section class="main-content listings-section">
             <ul id="listings">
                 <li class="listing money">
                     <img class="listing-image" alt="$">
@@ -163,14 +162,11 @@
 
         <footer>
             <ul>
-                <li><a href="/mobile/list.html"><img src="/img/listings.png"/></a></li>
-                <li><a href="/mobile/offer.html?listings=true"><img src="/img/offers.png"/></a></li>
-                <li><a href="/mobile/profile.html"><img src="/img/profile.png"/></a></li>
+                <li><a href="javascript:show('listings')"><img src="/img/listings.png"/></a></li>
+                <li><a href="javascript:show('offers')"><img src="/img/offers.png"/></a></li>
+                <li><a href="javascript:show('profile')"><img src="/img/profile.png"/></a></li>
             </ul>
         </footer>
-
-
-        <script src="/js/list.js"></script>
 
         <script type="text/html" id="tpl-matches">
             <li class="listing {{TYPE}} {{DONE}}" data-id="{{ID}}" data-type="match">
@@ -221,25 +217,12 @@
             </li>
         </script>
 
-        <script src="/js/vendor/jquery-1.11.2.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.3/moment.min.js"></script>
         <script src="https://apis.google.com/js/platform.js" async defer></script>
 
         <script src="/js/main.js"></script>
-
-        <script>
-            $(document).ready(() => {
-                $('select').material_select();
-            });
-
-            $('.timepicker').pickatime({
-                twelvehour: false,
-                autoclose: true
-            });
-
-            $('.datepicker').pickadate({
-                closeOnSelect: true
-            });
-        </script>
+        <script src="/js/list.js"></script>
     </body>
 </html>
