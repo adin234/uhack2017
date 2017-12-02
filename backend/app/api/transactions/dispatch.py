@@ -12,7 +12,7 @@ from ...lib import FailedRequest
 from ...lib import db, make_response, auth_required
 from sqlalchemy import and_, or_, between
 
-from .models import UserTransaction
+from .models import UserTransaction, Airport
 from ..auth.models import User
 
 # Define the blueprint: 'auth', set its url prefix: app.url/user
@@ -76,6 +76,16 @@ def get_available_forex(res):
     r = requests.get(full_url, headers=headers)
 
     return res.send(r.json())
+
+
+@mod_transaction.route('/airports', methods=['GET'])
+@auth_required
+@make_response
+def get_available_airports(res):
+
+    airports = db.session.query(Airport).all()
+
+    return res.send([ap.serialize() for ap in airports])
 
 
 @mod_transaction.route('/search_match', methods=['GET'])

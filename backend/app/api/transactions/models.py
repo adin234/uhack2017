@@ -26,3 +26,10 @@ class UserTransaction(db.Model, Serializer):
         self.arrive_date = trans_obj['arrive_date']
         self.depart_from = trans_obj['depart_from']
         self.arrive_to = trans_obj['arrive_to']
+
+
+class Airport(db.Model, Serializer):
+    __tablename__ = 'airports'
+
+    code = db.Column(db.String(64), primary_key=True)
+    name = db.Column(db.Text, nullable=False)
