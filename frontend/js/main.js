@@ -1,11 +1,8 @@
 const DATETIME_FMT = 'YYYY-MM-DD HH:mm:ss';
 const API = 'http://192.168.0.24:3000';
 const USER_ID = 10002;
-<<<<<<< HEAD
 const NAME = 'Ninz';
-=======
 let forEx = [];
->>>>>>> 862f9bf6bafb1ae48d513892fc4d585945b6147e
 
 function onSignIn(googleUser) {
 	var profile = googleUser.getBasicProfile();
@@ -39,11 +36,8 @@ function start () {
         autoclose: true
     });
 
-<<<<<<< HEAD
 	$('.modal').modal();
 
-=======
->>>>>>> 862f9bf6bafb1ae48d513892fc4d585945b6147e
     $('.datepicker').pickadate({
         closeOnSelect: true,
         format: 'yyyy-mm-dd'
