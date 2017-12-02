@@ -28,20 +28,20 @@
           </nav>
         </header>
 
-        <section class="main">
-            <div class="container">
-                <br/>
-                <form class="form col s12">
+        <div class="container">
+            <br/>
+            <section id="offer-section">
+                <form class="form col s12" id="offer-form">
                     <h4>Foreign Exchange</h4>
                     <div class="card">
                         <div class="card-content">
                             <div class="row">
                                 <div class="input-field col s6">
-                                    <input type="number" name="money" placeholder="10,500.23">
+                                    <input required type="number" name="amount" placeholder="10,500.23">
                                     <label>I have</label>
                                 </div>
                                 <div class="input-field col s6">
-                                    <select name="have-currency">
+                                    <select name="currency">
                                         <option value="php" selected>PH Peso</option>
                                         <option value="yen">JA Yen</option>
                                     </select>
@@ -54,7 +54,7 @@
                                     <label>In exchange for</label>
                                 </div>
                                 <div class="input-field col s6">
-                                    <select name="want-currency">
+                                    <select name="exchange_currency">
                                         <option value="php">PH Peso</option>
                                         <option value="yen" selected>JA Yen</option>
                                     </select>
@@ -79,34 +79,34 @@
                         <div class="card-content">
                             <div class="row">
                                 <div class="input-field col s12 m4">
-                                    <select>
+                                    <select name="depart_from">
                                         <option value="naiat3" selected>NAIA Terminal 3</option>
                                         <option value="naiat2">NAIA Terminal 2</option>
                                     </select>
                                     <label>I will depart from</label>
                                 </div>
                                 <div class="input-field col s12 m4">
-                                    <input type="text" class="datepicker" placeholder="8 February, 2018">
+                                    <input required type="text" name="depart_date" class="datepicker" placeholder="02-08-2018">
                                     <label>at</label>
                                 </div>
                                 <div class="input-field col s12 m4">
-                                    <input type="text" class="timepicker" placeholder="12:00">
+                                    <input required type="text" name="depart_time" class="timepicker" placeholder="12:00">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="input-field col s12 m4">
-                                    <select>
+                                    <select name="arrive_to">
                                         <option value="naiat3" selected>Narita Airport</option>
                                         <option value="naiat2">NAIA Terminal 2</option>
                                     </select>
                                     <label>I will arrive at</label>
                                 </div>
                                 <div class="input-field col s12 m4">
-                                    <input type="text" class="datepicker" placeholder="8 February, 2018">
+                                    <input required type="text" name="arrive_date" class="datepicker" placeholder="02-08-2018">
                                     <label>at</label>
                                 </div>
                                 <div class="input-field col s12 m4">
-                                    <input type="text" class="timepicker" placeholder="17:00">
+                                    <input required type="text" name="arrive_time" class="timepicker" placeholder="17:00">
                                 </div>
                             </div>
 
@@ -117,11 +117,31 @@
                         <div class="col m4 offset-m4 s12">
                             <button class="btn btn-large red" id="submit">SUBMIT</button>
                         </div>
+                        <div class="col m1 s12">
+                          <div class="preloader-wrapper big" id="submit-loader">
+                            <div class="spinner-layer spinner-red-only">
+                              <div class="circle-clipper left">
+                                <div class="circle"></div>
+                              </div>
+                              <div class="gap-patch">
+                                <div class="circle"></div>
+                              </div>
+                              <div class="circle-clipper right">
+                                <div class="circle"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                     </div>
                 </form>
-                <br/>
-            </div>
-        </section>
+            </section>
+
+            <section id="listings-section">
+                    I'm listings section
+            </section>
+
+            <br/>
+        </div>
 
 
         <footer class="page-footer">
@@ -131,7 +151,7 @@
                 <h5>Our Story</h5>
                 <p>Hi, we did not have any app idea when we came here in this event. We played 3 games of DOTA first and lost all of it (noob carries ofc). After that, we had pizza and ideas started to come out. We hacked all night while our backend dev is sleeping (not me, I'm obviously the front-end guy). I really hope we win.</p>
                 <br/>
-                <p>p.s. WE LOVE UNIONBANK <3</p>
+                <p>p.s. WE LOVE UNIONBANK ❤❤❤</p>
               </div>
               <div class="col l4 offset-l2 s12">
                 <h5>Awesome Devs</h5>
@@ -154,6 +174,7 @@
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.3/moment.min.js"></script>
         <script src="https://apis.google.com/js/platform.js"></script>
         <script src="js/main.js"></script>
     </body>

@@ -1,3 +1,7 @@
+const DATETIME_FMT = 'YYYY-MM-DD HH:mm:ss';
+const API = 'http://192.168.0.24:3000';
+const USER_ID = 10002;
+
 function onSignIn(googleUser) {
 	var profile = googleUser.getBasicProfile();
 	console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
@@ -22,14 +26,15 @@ function start () {
     });
 
     $('.datepicker').pickadate({
-        closeOnSelect: true
+        closeOnSelect: true,
+        format: 'yyyy-mm-dd'
     });
 }
 
 function bind() {
 	$.urlParam = function(name){
 	    var results = new RegExp('[\?&]' + name + '=([^]*)').exec(window.location.href);
-	    if (results==null){
+	    if (results === null){
 	       return null;
 	    }
 	    else{
@@ -37,42 +42,62 @@ function bind() {
 	    }
 	}
 
-	$('.header-nav').click(headerClick);
-
-	$('#btn-buy').click(buy);
-	$('#btn-sell').click(sell);
-
-	$('#list').click(showListings);
+	$('#offer-form').submit(submitOffer);
 }
 
-function showListings(e) {
-	//call saving here
+function submitOffer(e) {
 
-	nextPage();
+	const form = e.target;
+
+	const depart_date = moment(form.depart_date.value + ' ' + form.depart_time.value + ':00', DATETIME_FMT)
+		.utc()
+		.format(DATETIME_FMT);
+
+	const arrive_date = moment(form.arrive_date.value + ' ' + form.arrive_time.value + ':00', DATETIME_FMT)
+		.utc()
+		.format(DATETIME_FMT);
+
+	const payload = {
+		amount: form.amount.value,
+		currency: form.currency.value,
+		exchange_currency: form.exchange_currency.value,
+		depart_date,
+		arrive_date,
+		depart_from: form.depart_from.value,
+		arrive_to: form.arrive_to.value
+	};
+
+	$('#submit').attr('disabled', 'disabled');
+	$('#submit-loader').toggleClass('active');
+
+	function doneLoading() {
+		$('#submit').removeAttr('disabled');
+		$('#submit-loader').toggleClass('active');
+	}
+
+	$.ajax({
+			method: 'POST',
+			url: API + '/api/transaction',
+			date: payload,
+			headers: {
+				'x-user-id': USER_ID
+			}
+		})
+		.done(result => {
+			doneLoading();
+			show('listings');
+		})
+		.fail(e => {
+			console.error(e);
+			Materialize.toast('Ooops! Something went wrong. I\'m sorry', 4000)
+			doneLoading();
+		});
+
+	return false;
 }
 
-function nextPage(id) {
-	let goTo = 'list.html?listings=true&id=' + id;
-	open(goTo)
+function show(section) {
+	$('section').hide();
+	$('#' + section + '-section').show();
 }
-
-function buy() {
-	open('details.html?buy=true');
-}
-
-function sell() {
-	open('details.html')
-}
-
-function open(path) {
-	location.href = path;
-}
-
-function headerClick(e) {
-	const open = $(this).data('open');
-
-	$('.tab').hide();
-	$('.tab.' + open).show();
-}
-
 $(document).ready(start);
