@@ -30,12 +30,12 @@ function bind() {
 	$('#btn-buy').click(buy);
 	$('#btn-sell').click(sell);
 
-	$('#list').click(showListings);
+	$('#submit').click(showListings);
 }
 
 function showListings(e) {
 	//call saving here
-
+	e.preventDefault();
 	nextPage();
 }
 
