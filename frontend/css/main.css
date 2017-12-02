@@ -1,4 +1,7 @@
 /*! HTML5 Boilerplate v5.0 | MIT License | http://h5bp.com/ */
+body {
+    background: #eeeeee;
+}
 
 .listing-image {
     width: 50px;
@@ -183,7 +186,7 @@ nav a:hover {
    Media Queries
    ========================================================================== */
 
-@media only screen and (min-width: 480px) {
+@media only screen and (min-width: 280px) {
 
 /* ====================
     INTERMEDIATE: Menu
@@ -216,6 +219,27 @@ nav a:hover {
     .oldie nav a {
         margin: 0 0.7%;
     } */
+
+    header ul {
+        background-color: #FB5830;
+        list-style: none;
+        padding: 0px;
+        margin: 0px;
+        display: flex;
+    }
+
+    header ul li {
+        flex: 1;
+        text-align: center;
+        color: white;
+        font-size: 30px;
+        padding: 10px;
+    }
+
+    header ul li a {
+        color: white;
+        text-decoration: none;
+    }
 }
 
 @media only screen and (min-width: 768px) {
