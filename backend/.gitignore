@@ -1,0 +1,29 @@
+# Ignored file extensions
+*.pyc
+*.log
+*.csv
+*.dat
+*.out
+*.pid
+*.gz
+*.DS_Store
+# Ignore build related extension
+# and directory
+*.egg-info
+build
+
+# These are the common
+# folder name of 
+# virtual environments.
+# Add your virtual environment here
+dist
+bin
+venv
+dev
+devp6
+idea
+.idea
+
+# System/sublime ignored files
+trash
+sblm.sublime-workspace
