@@ -103,6 +103,6 @@ function show(section) {
 	$('section').hide();
 	$('#nav-mobile li').removeClass('active');
 	$('#' + section + '-nav').addClass('active');
-	$('#' + section + '-section').show();
+	$('.' + section + '-section').show();
 }
 $(document).ready(start);
