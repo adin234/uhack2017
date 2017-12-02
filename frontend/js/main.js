@@ -25,6 +25,8 @@ function start () {
         autoclose: true
     });
 
+    console.log('called');
+
     $('.datepicker').pickadate({
         closeOnSelect: true,
         format: 'yyyy-mm-dd'
@@ -80,7 +82,8 @@ function submitOffer(e) {
 	$.ajax({
 			method: 'POST',
 			url: API + '/api/transaction',
-			date: payload,
+			data: JSON.stringify(payload),
+			contentType: 'application/json',
 			headers: {
 				'x-user-id': USER_ID
 			}

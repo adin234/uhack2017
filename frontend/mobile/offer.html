@@ -26,20 +26,20 @@
         <![endif]-->
         <header>OFFER</header>
 
-        <section class="main-content">
+        <section class="main-content offers-section">
             <div class="container">
                 <br/>
-                <form class="form col s12">
+                <form class="form col s12" id="offer-form">
                     <h4>Foreign Exchange</h4>
                     <div class="card">
                         <div class="card-content">
                             <div class="row">
                                 <div class="input-field col s6">
-                                    <input type="number" name="money" placeholder="10,500.23">
+                                    <input required type="number" name="amount" placeholder="10,500.23">
                                     <label>I have</label>
                                 </div>
                                 <div class="input-field col s6">
-                                    <select name="have-currency">
+                                    <select name="currency">
                                         <option value="php" selected>PH Peso</option>
                                         <option value="yen">JA Yen</option>
                                     </select>
@@ -52,7 +52,7 @@
                                     <label>In exchange for</label>
                                 </div>
                                 <div class="input-field col s6">
-                                    <select name="want-currency">
+                                    <select name="exchange_currency">
                                         <option value="php">PH Peso</option>
                                         <option value="yen" selected>JA Yen</option>
                                     </select>
@@ -77,34 +77,34 @@
                         <div class="card-content">
                             <div class="row">
                                 <div class="input-field col s12 m4">
-                                    <select>
+                                    <select name="depart_from">
                                         <option value="naiat3" selected>NAIA Terminal 3</option>
                                         <option value="naiat2">NAIA Terminal 2</option>
                                     </select>
                                     <label>I will depart from</label>
                                 </div>
                                 <div class="input-field col s12 m4">
-                                    <input type="text" class="datepicker" placeholder="8 February, 2018">
+                                    <input required type="text" name="depart_date" class="datepicker" placeholder="02-08-2018">
                                     <label>at</label>
                                 </div>
                                 <div class="input-field col s12 m4">
-                                    <input type="text" class="timepicker" placeholder="12:00">
+                                    <input required type="text" name="depart_time" class="timepicker" placeholder="12:00">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="input-field col s12 m4">
-                                    <select>
+                                    <select name="arrive_to">
                                         <option value="naiat3" selected>Narita Airport</option>
                                         <option value="naiat2">NAIA Terminal 2</option>
                                     </select>
                                     <label>I will arrive at</label>
                                 </div>
                                 <div class="input-field col s12 m4">
-                                    <input type="text" class="datepicker" placeholder="8 February, 2018">
+                                    <input required type="text" name="arrive_date" class="datepicker" placeholder="02-08-2018">
                                     <label>at</label>
                                 </div>
                                 <div class="input-field col s12 m4">
-                                    <input type="text" class="timepicker" placeholder="17:00">
+                                    <input required type="text" name="arrive_time" class="timepicker" placeholder="17:00">
                                 </div>
                             </div>
 
@@ -115,10 +115,50 @@
                         <div class="col m4 offset-m4 s12">
                             <button class="btn btn-large red" id="submit">SUBMIT</button>
                         </div>
+                        <div class="col m1 s12">
+                          <div class="preloader-wrapper big" id="submit-loader">
+                            <div class="spinner-layer spinner-red-only">
+                              <div class="circle-clipper left">
+                                <div class="circle"></div>
+                              </div>
+                              <div class="gap-patch">
+                                <div class="circle"></div>
+                              </div>
+                              <div class="circle-clipper right">
+                                <div class="circle"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                     </div>
                 </form>
                 <br/>
             </div>
+        </section>
+
+        <section class="main-content list-section">
+            <ul id="listings">
+                <li class="listing money">
+                    <img class="listing-image" alt="$">
+                    <dl>
+                        <dt>From</dt>
+                        <dl>Japan</dl>
+                        <dt>Date</dt>
+                        <dl>June 28, 2018 12:00 PHT</dl>
+                    </dl>
+                    <span clss="badge">1</span>
+                </li>
+                <li class="listing baggage">
+                    <img class="listing-image" alt="$">
+                    <dl>
+                        <dt>From</dt>
+                        <dl>Japan</dl>
+                        <dt>Date</dt>
+                        <dl>June 28, 2018 12:00 PHT</dl>
+                    </dl>
+                    <span clss="badge">10</span>
+                </li>
+            </ul>
         </section>
 
         <footer>
@@ -129,6 +169,57 @@
             </ul>
         </footer>
 
+
+        <script src="/js/list.js"></script>
+
+        <script type="text/html" id="tpl-matches">
+            <li class="listing {{TYPE}} {{DONE}}" data-id="{{ID}}" data-type="match">
+                <div class="listing-data">
+                    <span class="circle">{{ALIAS}}</span>
+                    <div class="details">
+                        <span class="value">{{AMOUNT}}</span>
+                        <dl>
+                            <dd>{{TO}}</dd>
+                            <dd>{{DATE}}</dd>
+                            <dd>{{TIME}}</dd>
+                        </dl>
+                    </div>
+
+                    <span class="badge exclamation-icon">{{MESSAGE_BADGE}}</span>
+                </div>
+            </li>
+        </script>
+
+        <script type="text/html" id="tpl-listings">
+            <li class="listing {{TYPE}} {{DONE}}" data-id="{{ID}}" data-type="listing">
+                <div class="listing-data">
+                    <span class="circle">{{ALIAS}}</span>
+                    <div class="details">
+                        <span class="value">{{AMOUNT}}</span>
+                        <dl>
+                            <dd>{{FROM}}</dd>
+                            <dd>{{TO}}</dd>
+                            <dd>{{DATE}}</dd>
+                        </dl>
+                    </div>
+                    <span class="badge exclamation-icon hide">{{BADGE}}</span>
+                    {{CHEV}}
+                    <div class="preloader-wrapper small">
+                        <div class="spinner-layer spinner-red-only">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div><div class="gap-patch">
+                            <div class="circle"></div>
+                            </div><div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <ul class="matches">
+                </ul>
+            </li>
+        </script>
 
         <script src="/js/vendor/jquery-1.11.2.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
