@@ -1,4 +1,5 @@
 import datetime
+import requests
 
 # Import global context
 from flask import request, current_app, g
@@ -59,6 +60,22 @@ def get_user_transactions(res):
 
     transactions = list(map(lambda x: x.serialize(), transactions))
     return res.send(transactions)
+
+
+@mod_transaction.route('/forex', methods=['GET'])
+@auth_required
+@make_response
+def get_available_forex(res):
+
+    url_path = '/forex/v1/rates'
+    full_url = current_app.config['UB_BASE_URL'] + url_path
+    headers = {
+        'x-ibm-client-id': current_app.config['UB_CLIENT_ID'],
+        'x-ibm-client-secret': current_app.config['UB_CLIENT_SECRET'],
+    }
+    r = requests.get(full_url, headers=headers)
+
+    return res.send(r.json())
 
 
 @mod_transaction.route('/search_match', methods=['GET'])
