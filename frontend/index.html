@@ -17,17 +17,85 @@
         <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
 
         <meta name="google-signin-client_id" content="633338575872-l63hijqjvamr9lqo8g7p1qtajk2ebmg9.apps.googleusercontent.com">
+
+        <style type="text/css">
+            div.orange-dark {
+                -ms-transform: rotate(30deg); /* IE 9 */
+                -webkit-transform: rotate(30deg); /* Chrome, Safari, Opera */
+                transform: rotate(30deg);
+
+                background-color: #FB5830;
+
+                position: absolute;
+                z-index: -1;
+                left: -60vw;
+                top: -60vh;
+
+                height: 150vh;
+                width: 100vw; 
+            }
+
+            div.orange-light {
+                -ms-transform: rotate(-45deg); /* IE 9 */
+                -webkit-transform: rotate(-45deg); /* Chrome, Safari, Opera */
+                transform: rotate(-45deg);
+
+                background-color: #FDB38F;
+
+                position: absolute;
+                z-index: -2;
+                left: 10vw;
+                top: -30vh;
+
+                height: 150vh;
+                width: 150vw; 
+            }
+
+            .main-logo-container {
+                text-align: center;
+            }
+
+            .g-signin2 {
+                width: 120px;
+                margin: 0 auto;
+                margin-top: 20px;
+            }
+
+            #login {
+                height: 200px;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            body {
+                position: relative;
+            }
+
+            html, body {
+                height: 100%;
+            }
+        </style>
     </head>
     <body>
         <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <div class="main-logo-container">
-            <img src="https://scontent.fmnl2-1.fna.fbcdn.net/v/t1.0-9/22851783_10203739053874597_5249329142625197409_n.jpg?oh=6e1387c8055e4ea26c4aeee844054cad&oe=5A9C12D1" alt="Logo" />
+        <div class="orange-dark">
         </div>
 
-        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+        <div class="orange-light">
+        </div>
+
+        <section id="login">
+            <div class="main-logo-container">
+                <img src="/img/4xlogo.png" alt="Logo" />
+            </div>
+
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
+        </section>
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
