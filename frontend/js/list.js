@@ -62,7 +62,9 @@ function showListing(e) {
 	}
 
 
-	open('details.html?id='+target.data('id'));
+	//open('details.html?id='+target.data('id'));
+	// mock details request
+	show('details');
 }
 
 function matches(holder, _matchesData) {
