@@ -80,7 +80,7 @@ function submitOffer(e) {
 	$.ajax({
 			method: 'POST',
 			url: API + '/api/transaction',
-			date: payload,
+			data: payload,
 			headers: {
 				'x-user-id': USER_ID
 			}
