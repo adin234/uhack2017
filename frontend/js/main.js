@@ -12,6 +12,18 @@ function start () {
 	bind();
 
 	typeof pageStart != "undefined" && pageStart();
+
+
+    $('select').material_select();
+
+    $('.timepicker').pickatime({
+        twelvehour: false,
+        autoclose: true
+    });
+
+    $('.datepicker').pickadate({
+        closeOnSelect: true
+    });
 }
 
 function bind() {
