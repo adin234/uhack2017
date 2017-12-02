@@ -37,6 +37,7 @@ function start () {
     });
 
 	$('.modal').modal();
+	$('select').material_select();
 
     $('.datepicker').pickadate({
         closeOnSelect: true,
