@@ -25,9 +25,12 @@ main {
     color: #666666;
 }
 
-#submit {
+#submit, #submit-card {
     width: 100%;
 }
 #exchange-rate {
     color: #FF6600;
+}
+#no-offer-tr {
+    display: none;
 }

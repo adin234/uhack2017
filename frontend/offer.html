@@ -146,8 +146,7 @@
                                 <div class="card-title">
                                     <h4 class="orange-text text-darken-3">10,500.23 PHP</h4>
                                 </div>
-                                offered by <strong class="orange-text text-darken-3">Ninz</strong>
-                                <a class="btn-floating right waves-effect waves-light red"><i class="material-icons">message</i></a>
+                                in exchange for <strong class="orange-text text-darken-3">23,403.40 YEN</strong>
                             </div>
                             <div class="card-action">
                                 Feb 8 12:00 NAIA Terminal 3
@@ -156,11 +155,75 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col s12 m8">
+                        <table class="bordered striped centered">
+                            <tbody>
+                                <tr id="no-offer-tr">
+                                    <td colspan="5">Sorry but there's no offer right now. Please check back after a while.</td>
+                                </tr>
+                                <tr>
+                                    <td>Ninz</td>
+                                    <td class="orange-text text-darken-3">23,450 YEN</td>
+                                    <td>NAIA Terminal 3</td>
+                                    <td>Feb 8 12:00</td>
+                                    <td>
+                                        <a class="btn-floating waves-effect waves-light orange darken-3 modal-trigger" href="#details-modal"><i class="material-icons">message</i></a>
+                                        &nbsp;&nbsp;
+                                        <a class="btn-floating waves-effect waves-light white" onclick="removeRow(this)"><i class="orange-text text-darken-3 material-icons">clear</i></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </section>
 
             <section class="settings-section">
-                    I'm settings section
+                <form class="form col s12" id="details-form">
+                    <h4>Bank Details</h4>
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="row">
+                                <div class="input-field col s12 m6">
+                                    <input required type="number" name="card_number" placeholder="0000 1111 2222 3333">
+                                    <label>Card Number</label>
+                                </div>
+                                <div class="input-field col s4 m2">
+                                    <input required type="text" name="expiry" placeholder="01/25">
+                                    <label>Expiry Date</label>
+                                </div>
+                                <div class="input-field col s4 m2">
+                                    <input required type="text" name="cvv" placeholder="000">
+                                    <label>CVV</label>
+                                </div>
+                                <div class="input-field col s4 m2">
+                                    <input required type="number" name="zip_code" placeholder="000">
+                                    <label>Zip Code</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col m3 s12">
+                                    <button class="btn red" id="submit-details">SAVE</button>
+                                </div>
+                                <div class="col m1 s12">
+                                  <div class="preloader-wrapper medium" id="submit-details-loader">
+                                    <div class="spinner-layer spinner-red-only">
+                                      <div class="circle-clipper left">
+                                        <div class="circle"></div>
+                                      </div>
+                                      <div class="gap-patch">
+                                        <div class="circle"></div>
+                                      </div>
+                                      <div class="circle-clipper right">
+                                        <div class="circle"></div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </section>
 
             <br/>
@@ -193,6 +256,31 @@
             </div>
           </div>
         </footer>
+
+        <!-- MODALS HERE -->
+
+        <div id="details-modal" class="modal modal-fixed-footer">
+            <div class="modal-content">
+                <h5>Ninz | <span class="orange-text text-darken-3">23,450 YEN</span> <small>NAIA Terminal 3 on Feb 8 12:00</small></h5>
+                <p id="message-thread">
+                    <span>Ninz: </span><span>Hello po</span><br/>
+                </p>
+                <div class="row">
+                    <div class="col s11 m11 input-field">
+                        <textarea class="materialize-textarea" id="message-area"></textarea>
+                        <label for="textarea1">Talk about the details of the exchange</label>
+                    </div>
+                    <div class="col s1 m1">
+                        <a class="btn-floating waves-effect waves-light orange darken-3 modal-trigger" href="#details-modal"><i class="material-icons" onclick="sendMessage()">send</i>></a>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#listings" class="modal-action modal-close waves-effect waves-green btn-flat ">Agree</a>
+                <a href="#listings" class="modal-action modal-close waves-effect waves-red btn-flat ">Cancel</a>
+            </div>
+        </div>
+
 
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
