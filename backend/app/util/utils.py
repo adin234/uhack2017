@@ -63,15 +63,6 @@ def get_data(reqd, optional, body):
     return ret
 
 
-def validate_anonymous_id(anonymous_id):
-    if not anonymous_id:
-        return False
-
-    pattern = re.compile(DefaultConfig.ANONYMOUS_ID_PATTERN)
-    match = pattern.match(anonymous_id)
-    return match is not None
-
-
 def encode_params(params):
     params_encoded = []
 

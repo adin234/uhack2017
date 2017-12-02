@@ -16,15 +16,15 @@ with open(os.path.join(_cwd, 'README.md'), encoding='utf-8') as f:
     _long_description = f.read()
 
 setup(
-    name='Hacarus Backend API V2',
-    version='2.0',
-    description='New backend API for mobile v2.',
+    name='UHACK BACKEND',
+    version='1.0',
+    description='Uhack backend api',
     long_description=_long_description,
-    url='https://github.com/hacarus/hacarus-api-v2',
+    url='https://github.com/adin234/uhack2017',
 
     # Author details
-    author='Hacarus',
-    author_email='dev@hacarus.com',
+    author='BEE FREE',
+    author_email='dev@beefree.com',
 
     packages=['app'],
     include_package_data=True,
