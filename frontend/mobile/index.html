@@ -90,7 +90,7 @@
         <div class="orange-light">
         </div>
 
-        <section id="login">
+        <section id="login" style="display: block!important">
             <div class="main-logo-container">
                 <img src="/img/4xlogo.png" alt="Logo" />
             </div>
@@ -103,8 +103,45 @@
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
         <script src="https://apis.google.com/js/platform.js" async defer></script>
+        <script src="/js/constants.js"></script>
 
-        <script src="/js/main.js"></script>
+        <script type="text/javascript">    
+            function onSignIn(googleUser) {
+                var profile = googleUser.getBasicProfile();
+                console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+                console.log('Name: ' + profile.getName());
+                console.log('Image URL: ' + profile.getImageUrl());
+                console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+
+                const payload = {
+                    name: profile.getName(),
+                    email: profile.getEmail()
+                }
+
+                $.ajax({
+                        method: 'POST',
+                        url: API + '/api/auth/user',
+                        data: JSON.stringify(payload),
+                        contentType: 'application/json',
+                    })
+                    .done(result => {
+                        USER_ID = result.data.user_id;
+                        payload.user_id = USER_ID;
+
+                        localStorage.user = JSON.stringify(payload);
+                    })
+                    .fail(e => {
+                        Materialize.toast('Ooops! Something went wrong. I\'m sorry', 4000)
+                        doneLoading();
+                    })
+                    .always(e => {
+                        NAME = profile.getName();
+                        EMAIL = profile.getEmail();
+
+                        location.href = "/mobile/offer.html";
+                    });
+            }
+        </script>
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>

@@ -1,18 +1,5 @@
-const DATETIME_FMT = 'YYYY-MM-DD HH:mm:ss';
-const API = 'http://192.168.0.24:3000';
-const USER_ID = 10002;
-const NAME = 'Ninz';
 let forEx = [];
-
-function onSignIn(googleUser) {
-	var profile = googleUser.getBasicProfile();
-	console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-	console.log('Name: ' + profile.getName());
-	console.log('Image URL: ' + profile.getImageUrl());
-	console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-
-	location.href = "offer.html";
-}
+let airports = [];
 
 function request(url, done, fail, always) {
 	$.ajax({
@@ -29,8 +16,6 @@ function request(url, done, fail, always) {
 function start () {
 	bind();
 
-	typeof pageStart != "undefined" && pageStart();
-
     $('.timepicker').pickatime({
         twelvehour: false,
         autoclose: true
@@ -45,8 +30,39 @@ function start () {
     });
 
     getForex();
+    getAirports();
 
+    if (localStorage.user) {
+    	const user = JSON.parse(localStorage.user);
+    	USER_ID = user.user_id;
+    	NAME = user.name;
+    	email = user.email;
+    }
+
+
+	typeof pageStart != "undefined" && pageStart();
     show(location.hash.substring(1) || 'offers');
+}
+
+function getAirports() {
+	request(
+		'/api/transaction/airports',
+		function (e) {
+			airports = e.data;
+
+			let options = [];
+			
+			for(let i=0; i < airports.length; i++) {
+				options.push('<option value="'+airports[i].code+'">'+airports[i].name+'</option>')
+			}
+
+			$('select.airports').html(options.join(''));
+		},
+		function (e) {},
+		function (e) {
+			$('select').material_select();
+		}
+	);
 }
 
 function getForex() {
@@ -226,6 +242,8 @@ function show(section) {
 	$('#nav-mobile li').removeClass('active');
 	$('#' + section + '-nav').addClass('active');
 	$('.' + section + '-section').show();
+
+	typeof pageStart != 'undefined' && pageStart();
 }
 
 function removeRow(row) {
@@ -253,4 +271,5 @@ function sendMessage() {
 
 	$('#message-area').val('');
 }
+
 $(document).ready(start);

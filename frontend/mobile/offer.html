@@ -78,7 +78,7 @@
                         <div class="card-content">
                             <div class="row">
                                 <div class="input-field col s12 m4">
-                                    <select name="depart_from">
+                                    <select class="airports" name="depart_from">
                                         <option value="naiat3" selected>NAIA Terminal 3</option>
                                         <option value="naiat2">NAIA Terminal 2</option>
                                     </select>
@@ -94,7 +94,7 @@
                             </div>
                             <div class="row">
                                 <div class="input-field col s12 m4">
-                                    <select name="arrive_to">
+                                    <select class="airports" name="arrive_to">
                                         <option value="naiat3" selected>Narita Airport</option>
                                         <option value="naiat2">NAIA Terminal 2</option>
                                     </select>
@@ -207,8 +207,8 @@
             </div>
 
             <div class="actions">
-                <button>ACCEPT</button> <!-- pwede gaing complete pag tapos na -->
-                <button style="display:none">CANCEL</button> <!-- pwede gaing complete pag tapos na -->
+                <button id="accept">ACCEPT</button> <!-- pwede gaing complete pag tapos na -->
+                <button id="cancel">CANCEL</button> <!-- pwede gaing complete pag tapos na -->
             </div>
         </section>
 
@@ -221,7 +221,7 @@
         </footer>
 
         <script type="text/html" id="tpl-matches">
-            <li class="listing {{TYPE}} {{DONE}}" data-id="{{ID}}" data-type="match">
+            <li class="listing {{TYPE}} {{DONE}}" data-id="{{ID}}" data-type="match" data-serialized="{{SERIALIZED}}">
                 <div class="listing-data">
                     <span class="circle">{{ALIAS}}</span>
                     <div class="details">
@@ -239,7 +239,7 @@
         </script>
 
         <script type="text/html" id="tpl-listings">
-            <li class="listing {{TYPE}} {{DONE}}" data-id="{{ID}}" data-type="listing">
+            <li class="listing {{TYPE}} {{DONE}}" data-id="{{ID}}" data-type="listing" data-serialized="{{SERIALIZED}}">
                 <div class="listing-data">
                     <span class="circle">{{ALIAS}}</span>
                     <div class="details">
@@ -269,11 +269,25 @@
             </li>
         </script>
 
+        <script type="text/html" id="tpl-listing-data">
+            <i class="chevron material-icons">chevron_left</i>
+            <span class="circle">{{ALIAS}}</span>
+            <div class="details">
+                <span class="value">{{AMOUNT}}</span>
+                <dl>
+                    <dd>{{TO}}</dd>
+                    <dd>{{DATE}}</dd>
+                    <dd>{{TIME}}</dd>
+                </dl>
+            </div>
+        </script>
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.3/moment.min.js"></script>
         <script src="https://apis.google.com/js/platform.js" async defer></script>
 
+        <script src="/js/constants.js"></script>
         <script src="/js/main.js"></script>
         <script src="/js/list.js"></script>
     </body>
