@@ -69,7 +69,6 @@ function showListing(e) {
 			}
 		})
 		.done(result => {
-			console.log($(target));
 			renderDetails(result.data, parentPayload, $(target).data('serialized'));
 		})
 		.fail(e => {
@@ -106,27 +105,31 @@ function renderDetails(details, parent, target) {
 
 	$('#details .listing-data').html(tpl);
 
+	if (parent.user_id == USER_ID) {
+		transaction_id = parent.user_transaction_id;
+	} else if (target.user_id == USER_ID) {
+		transaction_id = target.user_transaction_id;
+	}
+
 	if (details.base_confirmation) {
-		if (parent.user_id == USER_ID && details.base_transaction_id == parent.user_transaction_id && parent.exchange_currency != "PHP") {
-			$("#accept").text("COMPLETE");
-			transaction_id = parent.user_transaction_id;
-		} else if (target.user_id == USER_ID && details.base_transaction_id == target.user_transaction_id && target.exchange_currency != "PHP") {
-			$("#accept").text("COMPLETE");
-			transaction_id = target.user_transaction_id;
-		} else {
+		if (parent.user_id == USER_ID && details.base_transaction_id == parent.user_transaction_id) {
 			$("#accept").hide();
-		}
-	} else if (details.secondary_confirmation) {
-		if (parent.user_id == USER_ID && details.secondary_transaction_id == parent.user_transaction_id && parent.currency != "PHP") {
-			$("#accept").text("COMPLETE");
-			transaction_id = parent.user_transaction_id;
-		} else if (target.user_id == USER_ID && details.secondary_transaction_id == target.user_transaction_id && target.currency != "PHP") {
-			$("#accept").text("COMPLETE");
-			transaction_id = target.user_transaction_id;
-		} else {
+		} else if (target.user_id == USER_ID && details.base_transaction_id == target.user_transaction_id) {
 			$("#accept").hide();
 		}
 	}
+
+	if (details.secondary_confirmation) {
+		console.log('here', parent.user_id, details.secondary_transaction_id, parent.user_transaction_id)
+		console.log('here', target.user_id, details.secondary_transaction_id, target.user_transaction_id)
+		if (parent.user_id == USER_ID && details.secondary_transaction_id == parent.user_transaction_id) {
+			$("#accept").text("COMPLETE");
+		} else if (target.user_id == USER_ID && details.secondary_transaction_id == target.user_transaction_id) {
+			$("#accept").text("COMPLETE");
+		}
+	}
+
+	console.log(details, parent, target);
 
 	$('#accept').click(function(e) {
 		let endpoint = '/api/transaction/accept';
