@@ -162,7 +162,7 @@
             </ul>
         </section>
 
-        
+
         <section id="details" class="main-content details-section">
             <div class="listing-data">
                 <i class="chevron material-icons">chevron_left</i>
@@ -178,37 +178,54 @@
             </div>
 
             <div class="messaging">
-                <ul>
+                <ul class="white" style="padding: 10px; margin-bottom: 5px;">
                     <li class="sent">
                         <div class="message">
-                            <p class="content"> LOLOLOLOLOL </p>
+                            <p class="content"> User1: Hello! I like your offer. Where can we specifically meet and what's the exact time? </p>
                         </div>
                     </li>
                     <li class="received">
                         <div class="message">
-                            <p class="content"> LOLOLOLOLOL </p>
+                            <p class="content"> User2: Hi, at the jollibee at Terminal 3 5:00pm </p>
                         </div>
                     </li>
                     <li class="sent">
                         <div class="message">
-                            <p class="content"> LOLOLOLOLOL </p>
+                            <p class="content"> User1: Got it. Will be there. See you. </p>
                         </div>
                     </li>
                     <li class="sent">
                         <div class="message">
-                            <p class="content"> LOLOLOLOLOL </p>
+                            <p class="content"> User2: Thanks! </p>
                         </div>
                     </li>
                 </ul>
                 <div class="messageForm">
-                    <textarea></textarea>
-                    <button>SEND</button>
+                    <form>
+                        <div class="row white" style="display: flex; align-items: center;">
+                            <div class="col s10 m10 input-field">
+                                <input type="text">
+                                <label for="textarea1">Talk about the details of the exchange</label>
+                            </div>
+                            <div class="col s2 m2">
+                                <i class="material-icons orange-text text-darken-3 suffix">send</i>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
 
             <div class="actions">
-                <button id="accept">ACCEPT</button> <!-- pwede gaing complete pag tapos na -->
-                <button id="cancel">CANCEL</button> <!-- pwede gaing complete pag tapos na -->
+                <div class="row">
+                    <div class="col s12">
+                        <button id="accept" class="btn red">ACCEPT</button> <!-- pwede gaing complete pag tapos na -->
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <button id="cancel" class="btn red-text white">CANCEL</button> <!-- pwede gaing complete pag tapos na -->
+                    </div>
+                </div>
             </div>
         </section>
 

@@ -34,3 +34,8 @@ main {
 #no-offer-tr {
     display: none;
 }
+
+
+#accept, #cancel {
+    width: 100%;
+}
