@@ -16,6 +16,13 @@ function request(url, done, fail, always) {
 function start () {
 	bind();
 
+	if (localStorage.user) {
+    	const user = JSON.parse(localStorage.user);
+    	USER_ID = user.user_id;
+    	NAME = user.name;
+    	email = user.email;
+    }
+
     $('.timepicker').pickatime({
         twelvehour: false,
         autoclose: true
@@ -31,13 +38,6 @@ function start () {
 
     getForex();
     getAirports();
-
-    if (localStorage.user) {
-    	const user = JSON.parse(localStorage.user);
-    	USER_ID = user.user_id;
-    	NAME = user.name;
-    	email = user.email;
-    }
 
 
 	typeof pageStart != "undefined" && pageStart();

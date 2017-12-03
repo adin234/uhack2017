@@ -80,14 +80,14 @@ function showListing(e) {
 
 }
 
+let toasted = false;
+
 function renderDetails(details, parent, target) {
 	parent = JSON.parse(decodeURIComponent(parent));
 	target = JSON.parse(decodeURIComponent(target));
 
-	console.log(parent);
-	console.log(target);
-	console.log(details);
-
+	$("#accept").text("ACCEPT");
+	
 	const tplData = {}
 
 	let src = parent
@@ -102,15 +102,66 @@ function renderDetails(details, parent, target) {
 	tplData.arrive_at = src.arrive_at;
 
 	const tpl = template([tplData], DETAIL);
+	let transaction_id = 0;
 
 	$('#details .listing-data').html(tpl);
 
-	if (details.base_transaction_id == parent.user_transaction_id && parent.user_id == USER_ID) {
-		
-	} else {
-
+	if (details.base_confirmation) {
+		if (parent.user_id == USER_ID && details.base_transaction_id == parent.user_transaction_id && parent.exchange_currency != "PHP") {
+			$("#accept").text("COMPLETE");
+			transaction_id = parent.user_transaction_id;
+		} else if (target.user_id == USER_ID && details.base_transaction_id == target.user_transaction_id && target.exchange_currency != "PHP") {
+			$("#accept").text("COMPLETE");
+			transaction_id = target.user_transaction_id;
+		} else {
+			$("#accept").hide();
+		}
+	} else if (details.secondary_confirmation) {
+		if (parent.user_id == USER_ID && details.secondary_transaction_id == parent.user_transaction_id && parent.currency != "PHP") {
+			$("#accept").text("COMPLETE");
+			transaction_id = parent.user_transaction_id;
+		} else if (target.user_id == USER_ID && details.secondary_transaction_id == target.user_transaction_id && target.currency != "PHP") {
+			$("#accept").text("COMPLETE");
+			transaction_id = target.user_transaction_id;
+		} else {
+			$("#accept").hide();
+		}
 	}
 
+	$('#accept').click(function(e) {
+		let endpoint = '/api/transaction/accept';
+		const payload = {
+			transaction_confirmation_id: details.transaction_confirmation_id,
+			transaction_id: transaction_id
+		};
+
+		if ($(this).text().toLowerCase() == "complete") {
+			endpoint = '/api/transaction/complete';
+		}
+
+		if (!toasted) {
+			toasted = true;
+			$.ajax({
+				method: 'POST',
+				url: API + endpoint,
+				data: JSON.stringify(payload),
+				contentType: 'application/json',
+				headers: {
+					'x-user-id': USER_ID
+				}
+			})
+			.done(result => {
+				Materialize.toast("CONGRATS!", 4000);
+			})
+			.fail(e => {
+			})
+			.always(e => {
+				show('listings');
+				toasted = false;
+			});
+		}
+
+	});
 }
 
 function matches(holder, _matchesData) {
@@ -133,7 +184,7 @@ function template(data, type) {
 
 	for (let i=0; i< data.length; i++) {
 		const tpl = $(templates[type]).html()
-			.replace(/\{\{DONE\}\}/gi, data[i].done ? "done" : "")
+			.replace(/\{\{DONE\}\}/gi, data[i].closed ? "done" : "")
 			.replace(/\{\{SERIALIZED\}\}/gi, encodeURIComponent(JSON.stringify(data[i])))
 			.replace(/\{\{ID\}\}/gi, data[i].user_transaction_id)
 			.replace(/\{\{FROM\}\}/gi, data[i].depart_from)
@@ -142,9 +193,9 @@ function template(data, type) {
 			.replace(/\{\{ALIAS\}\}/gi, data[i].exchange_currency)
 			.replace(/\{\{TIME\}\}/gi, moment(data[i].arrive_date).format('HH:mm'))
 			.replace(/\{\{AMOUNT\}\}/gi, data[i].amount + " " + data[i].currency)
-			.replace(/\{\{CHEV\}\}/gi, data[i].done ? "" : chevBadge)
-			.replace(/\{\{MESSAGE_BADGE\}\}/gi, data[i].done ? "DONE" : messageBadge)
-			.replace(/\{\{BADGE\}\}/gi, data[i].newMessages || (data[i].done ? "DONE" : data[i].matches))
+			.replace(/\{\{CHEV\}\}/gi, data[i].closed ? "" : chevBadge)
+			.replace(/\{\{MESSAGE_BADGE\}\}/gi, data[i].closed ? "DONE" : messageBadge)
+			.replace(/\{\{BADGE\}\}/gi, data[i].newMessages || (data[i].closed ? "DONE" : data[i].matches))
 			.replace(/\{\{TYPE\}\}/gi, data[i].type);
 
 		rowItemHtmlArr.push(tpl);
