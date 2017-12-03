@@ -14,9 +14,6 @@ class User(db.Model, Serializer):
     language = db.Column(db.String(4), nullable=False, default='ZZ')
     image_url = db.Column(db.Text, nullable=True)
 
-    def __repr__(self):
-        return '<User {}, {}r>'.format(self.username, self.email)
-
     def __init__(self, user_obj):
         self.user_id = user_obj['user_id']
         self.email = user_obj['email']
@@ -36,14 +33,6 @@ class User(db.Model, Serializer):
     @classmethod
     def email_exist(cls, _email):
         _usr = User.query.filter_by(email=_email).first()
-
-        if _usr:
-            return True
-        return False
-
-    @classmethod
-    def username_exist(cls, _username):
-        _usr = User.query.filter_by(username=_username).first()
 
         if _usr:
             return True

@@ -44,9 +44,18 @@ def create_user(res):
     except SQLAlchemyError as error:
         if isinstance(error, IntegrityError):
             db.session.rollback()
-            raise FailedRequest('The email is already taken', status_code=400)
+            look_up = db.session.query(User).filter(User.email == params['email']).first()
+            return res.send(look_up.serialize())
 
         else:
             raise FailedRequest('An error occured: {}'.format(error), status_code=500)
 
     return res.send(user.serialize())
+
+
+@mod_auth.route('/redirect_uri', methods=['GET'])
+@make_response
+def redirect_uri(res):
+    params = utils.get_data(['code'], [], request.args)
+
+    res.send({})

@@ -38,3 +38,17 @@ CREATE TABLE airports (
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (code)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE transaction_confirmation(
+    transaction_confirmation_id INTEGER AUTO_INCREMENT,
+    base_transaction_id INTEGER NOT NULL,
+    secondary_transaction_id INTEGER NOT NULL,
+    base_confirmation TINYINT(1) DEFAULT 0 NOT NULL,
+    secondary_confirmation TINYINT(1) DEFAULT 0 NOT NULL,
+    completed TINYINT(1) DEFAULT 0 NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (transaction_confirmation_id),
+    UNIQUE KEY transaction_ids_key (base_transaction_id, secondary_transaction_id)
+) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

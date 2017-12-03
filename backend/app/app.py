@@ -80,7 +80,8 @@ def load_middlewares(app):
     # CORS
     CORS(app, allow_headers=app.config['ALLOWED_HEADERS'],
          origins=app.config['ALLOWED_ORIGINS'],
-         methods=app.config['ALLOWED_METHODS'])
+         methods=app.config['ALLOWED_METHODS'],
+         support_credentials=True)
 
 
 def load_blueprints(app):
