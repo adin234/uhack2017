@@ -108,7 +108,8 @@ def search_matching_transaction(res):
                 'depart_from': item.depart_from,
                 'arrive_to': item.arrive_to,
                 'name': row.name,
-                'email': row.email
+                'email': row.email,
+                'user_id': item.user_id
             }
 
     params = utils.get_data(['transaction_id'], [], request.args)
@@ -243,6 +244,14 @@ def complete_match(res):
     if lookup.secondary_confirmation and lookup.base_confirmation:
         lookup.completed = True
 
+    trans1 = db.session.query(UserTransaction)\
+        .filter(UserTransaction.user_transaction_id == lookup.base_transaction_id).first()
+
+    trans2 = db.session.query(UserTransaction) \
+        .filter(UserTransaction.user_transaction_id == lookup.secondary_transaction_id).first()
+
+    trans1.closed = True
+    trans2.closed = True
     db.session.commit()
 
     return res.send(lookup.serialize())
