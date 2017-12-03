@@ -1,0 +1,294 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="/css/main.css">
+        <link rel="stylesheet" href="/css/mobile.css">
+
+        <meta name="google-signin-client_id" content="633338575872-l63hijqjvamr9lqo8g7p1qtajk2ebmg9.apps.googleusercontent.com">
+    </head>
+    <body id="mobile">
+        <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <header class="hidden offers-section">OFFER</header>
+        <header class="hidden listings-section">LISTINGS</header>
+        <header class="hidden details-section">DETAILS</header>
+
+        <section class="main-content offers-section">
+            <div class="container">
+                <br/>
+                <form class="form col s12" id="offer-form">
+                    <h4>Foreign Exchange</h4>
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    <input required type="number" name="amount" placeholder="10,500.23">
+                                    <label>I have</label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <select class="currency" name="currency">
+                                        <option value="php" selected>PH Peso</option>
+                                        <option value="yen">JA Yen</option>
+                                    </select>
+                                    <label>Currency</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    <input type="number" placeholder="23,403.40" name="converted" disabled>
+                                    <label>In exchange for</label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <select class="currency" name="exchange_currency">
+                                        <option value="php">PH Peso</option>
+                                        <option value="yen" selected>JA Yen</option>
+                                    </select>
+                                    <label>Currency</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-action">
+                            <small>
+                                Exchange Rate:
+                                <span id="exchange-rate">
+                                    0.45 PHP = 1 YEN
+                                </span>
+                            </small>
+                        </div>
+                    </div>
+
+                    <br/>
+
+                    <h4>Flight Details</h4>
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="row">
+                                <div class="input-field col s12 m4">
+                                    <select class="airports" name="depart_from">
+                                        <option value="naiat3" selected>NAIA Terminal 3</option>
+                                        <option value="naiat2">NAIA Terminal 2</option>
+                                    </select>
+                                    <label>I will depart from</label>
+                                </div>
+                                <div class="input-field col s12 m4">
+                                    <input required type="text" name="depart_date" class="datepicker" placeholder="02-08-2018">
+                                    <label>at</label>
+                                </div>
+                                <div class="input-field col s12 m4">
+                                    <input required type="text" name="depart_time" class="timepicker" placeholder="12:00">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12 m4">
+                                    <select class="airports" name="arrive_to">
+                                        <option value="naiat3" selected>Narita Airport</option>
+                                        <option value="naiat2">NAIA Terminal 2</option>
+                                    </select>
+                                    <label>I will arrive at</label>
+                                </div>
+                                <div class="input-field col s12 m4">
+                                    <input required type="text" name="arrive_date" class="datepicker" placeholder="02-08-2018">
+                                    <label>at</label>
+                                </div>
+                                <div class="input-field col s12 m4">
+                                    <input required type="text" name="arrive_time" class="timepicker" placeholder="17:00">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col m4 offset-m4 s12">
+                            <button class="btn btn-large red" id="submit">SUBMIT</button>
+                        </div>
+                        <div class="col m1 s12">
+                          <div class="preloader-wrapper big" id="submit-loader">
+                            <div class="spinner-layer spinner-red-only">
+                              <div class="circle-clipper left">
+                                <div class="circle"></div>
+                              </div>
+                              <div class="gap-patch">
+                                <div class="circle"></div>
+                              </div>
+                              <div class="circle-clipper right">
+                                <div class="circle"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                </form>
+                <br/>
+            </div>
+        </section>
+
+        <section class="main-content listings-section">
+            <ul id="listings">
+                <li class="listing money">
+                    <img class="listing-image" alt="$">
+                    <dl>
+                        <dt>From</dt>
+                        <dl>Japan</dl>
+                        <dt>Date</dt>
+                        <dl>June 28, 2018 12:00 PHT</dl>
+                    </dl>
+                    <span clss="badge">1</span>
+                </li>
+                <li class="listing baggage">
+                    <img class="listing-image" alt="$">
+                    <dl>
+                        <dt>From</dt>
+                        <dl>Japan</dl>
+                        <dt>Date</dt>
+                        <dl>June 28, 2018 12:00 PHT</dl>
+                    </dl>
+                    <span clss="badge">10</span>
+                </li>
+            </ul>
+        </section>
+
+        
+        <section id="details" class="main-content details-section">
+            <div class="listing-data">
+                <i class="chevron material-icons">chevron_left</i>
+                <span class="circle">nin</span>
+                <div class="details">
+                    <span class="value">10,250,50 PHP</span>
+                    <dl>
+                        <dd>NAIA Terminal 3</dd>
+                        <dd>November 29, 2019</dd>
+                        <dd>8:00PM</dd>
+                    </dl>
+                </div>
+            </div>
+
+            <div class="messaging">
+                <ul>
+                    <li class="sent">
+                        <div class="message">
+                            <p class="content"> LOLOLOLOLOL </p>
+                        </div>
+                    </li>
+                    <li class="received">
+                        <div class="message">
+                            <p class="content"> LOLOLOLOLOL </p>
+                        </div>
+                    </li>
+                    <li class="sent">
+                        <div class="message">
+                            <p class="content"> LOLOLOLOLOL </p>
+                        </div>
+                    </li>
+                    <li class="sent">
+                        <div class="message">
+                            <p class="content"> LOLOLOLOLOL </p>
+                        </div>
+                    </li>
+                </ul>
+                <div class="messageForm">
+                    <textarea></textarea>
+                    <button>SEND</button>
+                </div>
+            </div>
+
+            <div class="actions">
+                <button id="accept">ACCEPT</button> <!-- pwede gaing complete pag tapos na -->
+                <button id="cancel">CANCEL</button> <!-- pwede gaing complete pag tapos na -->
+            </div>
+        </section>
+
+        <footer>
+            <ul>
+                <li><a href="javascript:show('listings')"><img src="/img/listings.png"/></a></li>
+                <li><a href="javascript:show('offers')"><img src="/img/offers.png"/></a></li>
+                <li><a href="javascript:show('profile')"><img src="/img/profile.png"/></a></li>
+            </ul>
+        </footer>
+
+        <script type="text/html" id="tpl-matches">
+            <li class="listing {{TYPE}} {{DONE}}" data-id="{{ID}}" data-type="match" data-serialized="{{SERIALIZED}}">
+                <div class="listing-data">
+                    <span class="circle">{{ALIAS}}</span>
+                    <div class="details">
+                        <span class="value">{{AMOUNT}}</span>
+                        <dl>
+                            <dd>{{TO}}</dd>
+                            <dd>{{DATE}}</dd>
+                            <dd>{{TIME}}</dd>
+                        </dl>
+                    </div>
+
+                    <span class="badge exclamation-icon">{{MESSAGE_BADGE}}</span>
+                </div>
+            </li>
+        </script>
+
+        <script type="text/html" id="tpl-listings">
+            <li class="listing {{TYPE}} {{DONE}}" data-id="{{ID}}" data-type="listing" data-serialized="{{SERIALIZED}}">
+                <div class="listing-data">
+                    <span class="circle">{{ALIAS}}</span>
+                    <div class="details">
+                        <span class="value">{{AMOUNT}}</span>
+                        <dl>
+                            <dd>{{FROM}}</dd>
+                            <dd>{{TO}}</dd>
+                            <dd>{{DATE}}</dd>
+                        </dl>
+                    </div>
+                    <span class="badge exclamation-icon hide">{{BADGE}}</span>
+                    {{CHEV}}
+                    <div class="preloader-wrapper small">
+                        <div class="spinner-layer spinner-red-only">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div><div class="gap-patch">
+                            <div class="circle"></div>
+                            </div><div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <ul class="matches">
+                </ul>
+            </li>
+        </script>
+
+        <script type="text/html" id="tpl-listing-data">
+            <i class="chevron material-icons">chevron_left</i>
+            <span class="circle">{{ALIAS}}</span>
+            <div class="details">
+                <span class="value">{{AMOUNT}}</span>
+                <dl>
+                    <dd>{{TO}}</dd>
+                    <dd>{{DATE}}</dd>
+                    <dd>{{TIME}}</dd>
+                </dl>
+            </div>
+        </script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.3/moment.min.js"></script>
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+        <script src="/js/constants.js"></script>
+        <script src="/js/main.js"></script>
+        <script src="/js/list.js"></script>
+    </body>
+</html>

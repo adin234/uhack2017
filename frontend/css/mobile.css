@@ -1,0 +1,222 @@
+@media only screen and (min-width: 280px) {
+
+/* ====================
+    INTERMEDIATE: Menu
+   ==================== 
+
+    nav a {
+        float: left;
+        width: 27%;
+        margin: 0 1.7%;
+        padding: 25px 2%;
+        margin-bottom: 0;
+    }
+
+    nav li:first-child a {
+        margin-left: 0;
+    }
+
+    nav li:last-child a {
+        margin-right: 0;
+    }
+
+/* ========================
+    INTERMEDIATE: IE Fixes
+   ======================== 
+
+    nav ul li {
+        display: inline;
+    }
+
+    .oldie nav a {
+        margin: 0 0.7%;
+    } */
+
+    body {
+        background: #E6E6E6;
+    }
+
+    header {
+        background-color: #FB5830;
+        color: white;
+        font-size: 30px;
+        padding: 10px;
+        text-align: center;
+
+        height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+    }
+
+    header ul {
+        background-color: #FB5830;
+        list-style: none;
+        padding: 0px;
+        margin: 0px;
+        display: flex;
+    }
+
+    header ul li {
+        flex: 1;
+        text-align: center;
+        color: white;
+        font-size: 30px;
+        padding: 10px;
+    }
+
+    header ul li a {
+        color: white;
+        text-decoration: none;
+    }
+
+    #listings .listing {
+        background: #ffffff;
+        border-top: 1px solid #e1e1e1;
+    }
+
+    .main-content {
+        margin-top: 70px;
+        margin-bottom: 73px;
+    }
+
+    dl {
+        margin: 0;
+    }
+
+    dt {
+        display: inline-block;
+        float: left
+    }
+
+    dd {
+        margin-left: 0px;
+        margin-top: -7px;
+        color: #C6C6C6;
+    }
+
+    ul {
+        margin: 0;
+    }
+
+    #listings > .listing {
+        border-bottom: 2px solid #FFB38C;
+        border-top: 0px;
+    }
+
+    #listings .listing .listing-data .value,
+    #details .listing-data .value {
+        margin-left: 20px;
+        font-size: 24px;
+        color: #FD8C55;
+
+    }
+
+    #listings .listing .listing-data {
+        padding: 10px;
+        display: flex;
+        align-items: center;
+    }
+
+    ul.matches .circle {
+        background: #CCCCCC;
+        border-color: #CCCCCC;
+    }
+
+    #listings .listing .listing-data .details {
+        flex: 1;
+    }
+
+    #listings .listing .listing-data dl {
+        margin-left: 20px;
+    }
+
+    #listings .listing .preloader-wrapper {
+        width: 0;
+    }
+
+    #listings .listing > ul li {
+        padding-left: 20px;
+    }
+
+    #listings .listing.done {
+        background: #EEEEEE;
+    }
+
+    #listings .listing.done .badge {
+        background-color: red;
+        color: white;
+        border-radius: 3px;
+    }
+
+    #listings .listing > ul span.badge {
+        color: red;
+    }
+
+    #listings > .listing > * > span.badge {
+        background-color: red;
+        border-radius: 3px;
+        color: white;
+    }
+
+    #details .listing-data {
+        background: white;
+        display: flex;
+        align-items: center;
+    }
+
+    #details .listing-data .details {
+        margin-left: 20px;
+        flex: 1;
+    }
+
+    #details .listing-data .value {
+        margin-left: 0px;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .circle {
+        width: 60px;
+        height: 60px;
+        border: 2px solid #EDEDED;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: white;
+        font-size: 24px;
+    }
+
+    footer {
+        border-top: 3px solid #FFB38C;
+        background: white;
+        padding: 10px;
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+
+    footer ul {
+        display: flex;
+        align-items: : center;
+        justify-content: center;
+    }
+
+    footer ul li {
+        flex: 1;
+        text-align: center;
+    }
+
+    footer ul img {
+        max-height: 50px;
+    }
+}

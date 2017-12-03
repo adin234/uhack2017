@@ -11,10 +11,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
-        <link rel="stylesheet" href="css/normalize.min.css">
-        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="/css/normalize.min.css">
+        <link rel="stylesheet" href="/css/main.css">
 
-        <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+        <script src="/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
 
         <meta name="google-signin-client_id" content="633338575872-l63hijqjvamr9lqo8g7p1qtajk2ebmg9.apps.googleusercontent.com">
 
@@ -32,7 +32,7 @@
                 top: -60vh;
 
                 height: 150vh;
-                width: 100vw;
+                width: 100vw; 
             }
 
             div.orange-light {
@@ -48,7 +48,7 @@
                 top: -30vh;
 
                 height: 150vh;
-                width: 150vw;
+                width: 150vw; 
             }
 
             .main-logo-container {
@@ -97,14 +97,14 @@
 
             <div class="g-signin2" data-onsuccess="onSignIn"
                 data-accesstype="offline"
-                data-redirecturi="http://local.uhack.ninzz.xyz/?redirect"></div>
+                data-redirecturi="http://local.uhack.ninzz.xyz/mobile/?redirect"></div>
         </section>
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
         <script src="https://apis.google.com/js/platform.js" async defer></script>
-
         <script src="/js/constants.js"></script>
+
         <script type="text/javascript">    
             function onSignIn(googleUser) {
                 var profile = googleUser.getBasicProfile();
@@ -131,12 +131,14 @@
                         localStorage.user = JSON.stringify(payload);
                     })
                     .fail(e => {
+                        Materialize.toast('Ooops! Something went wrong. I\'m sorry', 4000)
+                        doneLoading();
                     })
                     .always(e => {
                         NAME = profile.getName();
                         EMAIL = profile.getEmail();
 
-                        location.href = "/offer.html";
+                        location.href = "/mobile/offer.html";
                     });
             }
         </script>
