@@ -33,3 +33,22 @@ class Airport(db.Model, Serializer):
 
     code = db.Column(db.String(64), primary_key=True)
     name = db.Column(db.Text, nullable=False)
+
+
+class TransactionConfirmation(db.Model, Serializer):
+    __tablename__ = 'transaction_confirmation'
+
+    transaction_confirmation_id = db.Column(db.Integer, primary_key=True)
+    base_transaction_id = db.Column(db.Integer, nullable=False)
+    secondary_transaction_id = db.Column(db.Integer, nullable=False)
+    base_confirmation = db.Column(db.Boolean(), nullable=False)
+    secondary_confirmation = db.Column(db.Boolean(), nullable=False)
+    completed = db.Column(db.Boolean(), nullable=False)
+
+    def __init__(self, trans_obj):
+        self.transaction_confirmation_id = trans_obj['transaction_confirmation_id']
+        self.base_transaction_id = trans_obj['base_transaction_id']
+        self.secondary_transaction_id = trans_obj['secondary_transaction_id']
+        self.base_confirmation = trans_obj['base_confirmation']
+        self.secondary_confirmation = trans_obj['secondary_confirmation']
+        self.completed = trans_obj['completed']

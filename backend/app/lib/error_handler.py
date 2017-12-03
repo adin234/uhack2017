@@ -88,19 +88,19 @@ def create_logger(app):
 @mod_err.app_errorhandler(404)
 def not_found(error):
     current_app.logger.warning(error)
-    return build_error_object(error.description, 'The Monkey Ninja cannot find your request', 404)
+    return build_error_object(error, 'The Monkey Ninja cannot find your request', 404)
 
 
 @mod_err.app_errorhandler(405)
 def not_found(error):
     current_app.logger.warning(error)
-    return build_error_object(error.description, 'Our pet Dragon cannot resolve your command. Try another method', 405)
+    return build_error_object(error, 'Our pet Dragon cannot resolve your command. Try another method', 405)
 
 
 @mod_err.app_errorhandler(500)
 def not_found(error):
     current_app.logger.error(error)
-    return build_error_object(error.description, 'The Monkey Ninja is starving and have failed internally', 500)
+    return build_error_object(error, 'The Monkey Ninja is starving and have failed internally', 500)
 
 
 @mod_err.app_errorhandler(FailedRequest)
@@ -110,6 +110,6 @@ def exception_encountered(error):
     return build_error_object(error['data'], error['message'], error['code'])
 
 
-# @mod_err.app_errorhandler(Exception)
-# def exception_encountered(error):
-#     return build_error_object(str(error), 'Something exploded insde of me. Let the fireman deal with this', 500)
+@mod_err.app_errorhandler(Exception)
+def exception_encountered(error):
+    return build_error_object(str(error), 'Something exploded insde of me. Let the fireman deal with this', 500)

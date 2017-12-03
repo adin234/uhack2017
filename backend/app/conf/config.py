@@ -30,7 +30,7 @@ class DefaultConfig(BaseConfig):
     PAGE_LIMIT = 20
 
     # CORS
-    ALLOWED_HEADERS = ['Access-Token', 'Content-Type', 'referrer']
+    ALLOWED_HEADERS = ['Access-Token', 'Content-Type', 'referrer', 'X-User-Id']
     ALLOWED_ORIGINS = '*'
     ALLOWED_METHODS = ['GET', 'HEAD', 'POST', 'OPTIONS', 'PUT', 'PATCH', 'DELETE']
 

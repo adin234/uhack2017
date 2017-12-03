@@ -3,6 +3,7 @@ import requests
 
 # Import global context
 from flask import request, current_app, g
+from flask_cors import cross_origin
 
 # Import flask dependencies
 from flask import Blueprint
@@ -12,7 +13,7 @@ from ...lib import FailedRequest
 from ...lib import db, make_response, auth_required
 from sqlalchemy import and_, or_, between
 
-from .models import UserTransaction, Airport
+from .models import UserTransaction, Airport, TransactionConfirmation
 from ..auth.models import User
 
 # Define the blueprint: 'auth', set its url prefix: app.url/user
@@ -20,6 +21,7 @@ mod_transaction = Blueprint('transaction', __name__)
 
 
 @mod_transaction.route('', methods=['POST'])
+@cross_origin(supports_credentials=True)
 @auth_required
 @make_response
 def create_transaction(res):
@@ -106,7 +108,8 @@ def search_matching_transaction(res):
                 'depart_from': item.depart_from,
                 'arrive_to': item.arrive_to,
                 'name': row.name,
-                'email': row.email
+                'email': row.email,
+                'user_id': item.user_id
             }
 
     params = utils.get_data(['transaction_id'], [], request.args)
@@ -141,3 +144,114 @@ def search_matching_transaction(res):
         ).all()
 
     return res.send(list(format_result(transactions)))
+
+
+@mod_transaction.route('/check_match', methods=['POST'])
+@auth_required
+@make_response
+def check_match_transaction(res):
+
+    params = utils.get_data(
+        ['current_user_transaction', 'target_transaction'],
+        [],
+        request.get_json(silent=True))
+
+    curr = db.session.query(UserTransaction)\
+        .filter(UserTransaction.user_transaction_id == params['current_user_transaction'])\
+        .first()
+
+    if not curr:
+        raise FailedRequest('Cannot find one or more transaction', status_code=404)
+
+    target = db.session.query(UserTransaction)\
+        .filter(UserTransaction.user_transaction_id == params['target_transaction'])\
+        .first()
+
+    if not target:
+        raise FailedRequest('Cannot find one or more transaction', status_code=404)
+
+    if curr.currency == 'PHP':
+        base_transaction = curr
+        secondary_transaction = target
+    else:
+        base_transaction = target
+        secondary_transaction = curr
+
+    lookup = db.session.query(TransactionConfirmation)\
+        .filter(TransactionConfirmation.base_transaction_id == base_transaction.user_transaction_id)\
+        .filter(TransactionConfirmation.secondary_transaction_id == secondary_transaction.user_transaction_id)\
+        .first()
+
+    if lookup:
+        return res.send(lookup.serialize())
+
+    params = {
+        'base_transaction_id': base_transaction.user_transaction_id,
+        'secondary_transaction_id': secondary_transaction.user_transaction_id,
+        'base_confirmation': False,
+        'secondary_confirmation': False,
+        'completed': False,
+        'transaction_confirmation_id': None
+    }
+
+    ut = TransactionConfirmation(params)
+    db.session.add(ut)
+    db.session.commit()
+
+    return res.send(ut.serialize())
+
+
+@mod_transaction.route('/accept', methods=['POST'])
+@auth_required
+@make_response
+def update_match(res):
+    params = utils.get_data(
+        ['transaction_confirmation_id', 'transaction_id'],
+        [],
+        request.get_json(silent=True))
+
+    lookup = db.session.query(TransactionConfirmation)\
+        .filter(TransactionConfirmation.transaction_confirmation_id == params['transaction_confirmation_id']).first()
+
+    if not lookup:
+        raise FailedRequest('Cannot find transaction', status_code=404)
+
+    if lookup.base_transaction_id == params['transaction_id']:
+        lookup.base_confirmation = True
+    elif lookup.secondary_transaction_id == params['transaction_id']:
+        lookup.secondary_confirmation = True
+
+    db.session.commit()
+
+    return res.send(lookup.serialize())
+
+
+@mod_transaction.route('/complete', methods=['POST'])
+@auth_required
+@make_response
+def complete_match(res):
+    params = utils.get_data(
+        ['transaction_confirmation_id'],
+        [],
+        request.get_json(silent=True))
+
+    lookup = db.session.query(TransactionConfirmation) \
+        .filter(TransactionConfirmation.transaction_confirmation_id == params['transaction_confirmation_id']).first()
+
+    if not lookup:
+        raise FailedRequest('Cannot find transaction', status_code=404)
+
+    if lookup.secondary_confirmation and lookup.base_confirmation:
+        lookup.completed = True
+
+    trans1 = db.session.query(UserTransaction)\
+        .filter(UserTransaction.user_transaction_id == lookup.base_transaction_id).first()
+
+    trans2 = db.session.query(UserTransaction) \
+        .filter(UserTransaction.user_transaction_id == lookup.secondary_transaction_id).first()
+
+    trans1.closed = True
+    trans2.closed = True
+    db.session.commit()
+
+    return res.send(lookup.serialize())
